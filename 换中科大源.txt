@@ -1,0 +1,76 @@
+【摘要】 Atlas 200 DK安装python的hiai库以及opencv
+
+【昇腾】开发板上安装python的hiai库和opencv库
+
+Matrix是已经支持phthon接口了，但是发现目前python的hiai库并没有自动安装，需要自己安装；
+
+话不多说下面是安装步骤：
+
+步骤1. 开发板联网，如果已联网则跳过该步骤；
+
+否则请参考以下链接配置开发板联网（https://bbs.huaweicloud.com/forum/thread-26546-1-1.html ）
+
+接下来需要在开发板上配置arm的源（编辑/etc/apt/sources.list内容替换为如下中科大的源或者清华的源）；
+
+中科大源
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-backports main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-proposed main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-security main multiverse restricted universe
+deb http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-updates main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-backports main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-proposed main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-security main multiverse restricted universe
+deb-src http://mirrors.ustc.edu.cn/ubuntu-ports/ xenial-updates main multiverse restricted universe
+
+清华源：
+
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-security main multiverse restricted universe
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-updates main multiverse restricted universe
+deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-backports main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-security main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-updates main multiverse restricted universe
+deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu-ports/ xenial-backports main multiverse restricted universe
+
+ 
+
+更换源以后注意执行：sudo apt-get update
+
+ 
+
+ 
+
+步骤2. 安装依赖以及hiai库
+
+a) 安装依赖
+
+（如果apt-get没有sudo权限请配置：在/etc/sudoers中HwHiAiUser的权限配置一行最后添加：/usr/bin/apt-get）
+
+（如果保存不了，保存时用wq！保存即可）
+
+sudo apt-get install python-setuptools python-dev build-essential python-pip
+
+pip install numpy==1.16.0 enum34==1.1.6 future==0.17.1 funcsigs==1.0.2
+
+b) 下载python2_hiai_install.sh
+
+wget https://gitee.com/Atlas200DK/sample-classification-python/raw/master/scripts/python2_hiai_install.sh
+
+c)安装hiai库（需要再root用户下）
+
+su
+
+bash python2_hiai_install.sh
+
+步骤3. 安装opencv
+
+sudo apt-get install python-opencv
+
+4. 检查，登录开发板以后在python下分别执行如下import，不报错则说明hiai和opencv均已经完成安装，可以愉快的玩耍喽：
+
+import hiai
+
+import cv2
