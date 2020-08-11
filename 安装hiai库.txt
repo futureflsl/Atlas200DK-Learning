@@ -1,0 +1,26 @@
+python3 hiai 库安装方法
+
+    设置开发板联网并更新源，参见https://bbs.huaweicloud.com/forum/thread-28882-1-1.html 步骤1
+
+    安装依赖库
+
+    apt-get install python3-setuptools python3-pip python-funcsigs python3-dev build-essential
+
+    安装依赖的python库
+
+    pip3 install numpy Enum34 future
+
+    将附件中的hiai_py3_install.sh拷贝到开发板。脚本下载地址https://gitee.com/HuaweiAscend/tools/blob/master/python3_hiai_install.sh
+
+    登录开发板，切换到root用户，执行安装脚本
+
+    ./hiai_py3_install.sh
+
+
+  6. 命令行执行
+
+      python3
+
+      import hiai
+
+     测试安装是否成功

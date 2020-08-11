@@ -1,0 +1,49 @@
+在开发板上为Python3安装OpenCV
+
+在帖子：https://bbs.huaweicloud.com/forum/thread-28882-1-1.html中介绍了为Python2安装OpenCV的方法，一条apt-get install python-opencv命令即可。由于源的问题，Python3中无法直接安装OpenCV，下面给出一种为Python3安装OpenCV的方法：
+
+
+【准备工作】
+
+    首先配置开发板联网，请参考：https://bbs.huaweicloud.com/forum/thread-26546-1-1.html
+
+    为Python3安装hiai库：https://bbs.huaweicloud.com/forum/thread-35192-1-1.html
+
+
+【安装步骤】
+
+以下命令均在root用户下执行：
+
+    安装构建opencv的工具：
+
+    apt-get install build-essential -y
+
+    apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev libv4l-dev -y
+
+    下载源码
+
+    git clone https://github.com/opencv/opencv.git
+
+    git clone https://github.com/opencv/opencv_contrib.git
+
+    在opencv中构建环境
+
+    cd opencv
+
+    mkdir release
+
+    cd release/
+
+    cmake -D BUILD_opencv_python3=YES -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local -D WITH_LIBV4L=ON -D OPENCV_EXTRA_MODULES=../../opencv_contrib/modules -D PYTHON3_LIBRARIES=/usr/lib/arm-linux-gnueabihf/libpython3.5m.so -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/lib/python3.5/dist-packages/numpy/core/include/ ..
+
+    编译
+
+    make -j8
+
+    安装并更新动态库
+
+    make install
+
+    ldconfig
+
+

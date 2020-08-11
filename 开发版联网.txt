@@ -1,0 +1,45 @@
+个配置开发板联网的简单方法（通过路由器+网线+dhcp）
+
+一个配置开发板联网的简单方法（通过路由器+网线）
+
+
+1.在如今互联网成为必须的今天，我假设你已经有了路哟器，你的PC已经通过路由器上网，你的路由器目前还有一个网口，那么请将开发板用网线接入该网口。
+
+
+2. 仍然用usb方式登录开发板，切换至root用户：
+ssh HwHiAiUser@host_ip
+对于Atlas 200 DK，host_ip默认为192.168.1.2（USB连接）。
+su root
+
+
+3. 编辑interfaces文件，配置动态分配IP（确保你的路由器已经打开dhcp能力）:
+vim /etc/network/interfaces
+在interfaces文件中，把eth0的配置修改为如下两行：
+auto eth0
+iface eth0 inet dhcp
+
+
+注：按道理来讲这里配置静态IP也可以，但是我实验多次配置静态IP后总是上不了网，所以咱就选择动态分配IP得了，而且现在大家无论是手机还是PC可不都是动态的么。
+
+
+3. 重启开发板
+reboot
+重启后开发板即可联网，此时可以尝试ping百度：
+ping www.baidu.com
+
+注：
+
+如果不想重启开发板，执行如下命令也可以：
+
+ifdown eth0
+
+ifup eth0
+
+service networking restart
+
+
+
+4.你的开发板目前已经可以联网，你现在可以在你的路由器上查看它为你的开发板分配的IP，你现在可以通过该IP ssh登录只开发板了，当然你也可以仍然使用usb。
+
+
+5. 接下来你就可以在开发板上用apt-get安装一些东东了，玩起来吧!
