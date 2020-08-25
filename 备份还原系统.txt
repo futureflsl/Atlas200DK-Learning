@@ -1,0 +1,8 @@
+备份还原SD卡系统，
+在windows下面直接用win32diskimager就可以实现备份还原系统
+再ubuntu下面需要使用dd命令
+查看挂在:df -h 看到/dev/sdc1 /devsdc2等则备份系统指令如下
+备份系统：sudo dd if=/dev/sdc | gzip>/home/fut/atlas200dk-20200822.gz
+还原系统前需要用fdisk格式化SD卡
+还原系统：sudo gzip -dc /home/fut/atlas200dk-20200822.gz | sudo dd of=/dev/sdc
+关于还原备份SD系统可以参考博客：https://www.cnblogs.com/mph666/articles/13220862.html
