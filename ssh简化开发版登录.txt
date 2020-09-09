@@ -1,0 +1,37 @@
+【问题现象】每次登陆开发版都要输入长长一串用户@ip地址，还有登录密码，有什么方法可以简化吗？
+
+【问题解决】
+
+以下都是针对开发版用户名是HwHiAiUser，开发版IP地址为192.168.1.2
+
+第一步：登陆开发版，免密码登陆的设置：
+
+概念：.ssh目录：保存有关于SSH配置的信息在用户的家目录下，即/home/username注意ssh是个隐藏文件夹ls -a即可显示
+
+1. 终端执行 ssh-keygen 一路回车，在.ssh目录下自动生成SSH公钥id_rsa.pub文件和私钥id_rsa文件
+
+2. 执行 ssh-copy-id -p 22 HwHiAiUser@192.168.1.2  将本地的公钥保存在服务器
+
+经过以上步骤即可完成免密码登陆。
+
+第二步：简化用户名
+如何设置呢？很简单，方法如下：修改~/.ssh/config （如果没有.ssh或者config，就新建一个）
+
+ 
+
+fut@ubuntu:~$ cd .ssh/
+
+fut@ubuntu:~/.ssh$ sudo vi config
+
+然后在config添加如下配置
+
+Host aaa
+    HostName 192.168.1.2
+    Port  22
+    User  HwHiAiUser
+
+保存后，你就可以这样登陆：ssh aaa自动登录而且免密码
+
+拷贝文件就简化成如下格式：
+
+scp  test.sh aaa:/home/HwHiAiUser
